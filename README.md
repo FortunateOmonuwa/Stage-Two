@@ -6,6 +6,9 @@
 
 This documentation outlines the endpoints, request formats, and expected responses for this Rest API.
 
+
+Here's a link to the UML diagram https://lucid.app/lucidchart/0dce4372-34bd-4211-8c36-690b2f4f2a86/edit?viewport_loc=-12%2C76%2C2552%2C1256%2CHWEp-vi-RSFO&invitationId=inv_9f79219a-1835-4b41-8939-c4ce3fdc7709
+
 ## ###Endpoints and Usage
 
     Create a New User
