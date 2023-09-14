@@ -24,13 +24,19 @@ builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
 
-app.Services.GetRequiredService<UserContext>().Database.EnsureCreatedAsync().Wait();
+    using (var scope = app.Services.CreateScope())
+    {
+       scope.ServiceProvider.GetRequiredService<UserContext>().Database.EnsureCreated();
+    }
+}
+
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
