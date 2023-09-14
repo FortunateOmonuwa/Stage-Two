@@ -1,0 +1,2 @@
+//Connection string template
+"Data Source=Server name;Initial Catalog=Name of your database;User Id=Your database Id_admin;Password=YOUR_DB_PASSWORD
