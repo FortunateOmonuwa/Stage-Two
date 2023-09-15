@@ -22,7 +22,7 @@ namespace BackendStageTwo.DataAccess.Repository
                 {
                     throw new ArgumentNullException(nameof(user));
                 }
-                else if(!Regex.IsMatch(user.Name, "^[a-zA-Z]+$"))
+                else if(!Regex.IsMatch(user.Name, "^[a-zA-Z ]+$"))
                 {
                     throw new ArgumentException("Name should contain only alphabets.", nameof(user.Name));
                 }
@@ -39,27 +39,46 @@ namespace BackendStageTwo.DataAccess.Repository
             }
         }
 
-        public async Task<bool> DeleteAsync(int user_id)
+        public async Task<bool> DeleteAsync(string user_id)
         {
             try
             {
-                var user =  await  _context.Users.FirstOrDefaultAsync(id => id.Id == user_id);
-                if(user == null)
+                int userId;
+                
+
+                if (int.TryParse(user_id, out userId))
                 {
-                    return false;
+                    
+                    var user = await _context.Users.FirstOrDefaultAsync(d => d.Id == userId);
+                    if (user == null)
+                    {
+                        throw new Exception($"User with Id: {userId} doesn't exist");
+                    }
+
+                    _context.Users.Remove(user);
+                    await _context.SaveChangesAsync();
+                    return true;
                 }
                 else
                 {
+                    
+                    var user = await _context.Users.FirstOrDefaultAsync(d => d.Name == user_id);
+                    if (user == null)
+                    {
+                        throw new Exception($"User with Name: {user_id} doesn't exist");
+                    }
+
                     _context.Users.Remove(user);
                     await _context.SaveChangesAsync();
                     return true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception($"{ex.Source}/n {ex.Message}");
+                throw new Exception($"{ex.Source}\n{ex.Message}");
             }
         }
+
 
         public async Task<IQueryable<User>> GetAllAsync()
         {
@@ -81,25 +100,45 @@ namespace BackendStageTwo.DataAccess.Repository
             }
         }
 
-        public async Task<User> GetAsync(int user_id)
+        public async Task<User> GetAsync(string user_id)
         {
             try
             {
-               var  user = await _context.Users.FirstOrDefaultAsync (d => d.Id == user_id);
-                if(user == null)
+                if (int.TryParse(user_id, out int userId))
                 {
-                    throw new Exception($"User with Id: {user_id} doesn't exists");
+                   
+                    var user = await _context.Users.FirstOrDefaultAsync(d => d.Id == userId);
+                    if (user == null)
+                    {
+                        throw new Exception($"User with Id: {userId} doesn't exist");
+                    }
+                    else
+                    {
+                        return user;
+                    }
+                    
                 }
                 else
                 {
-                    return user;
+                   
+                    var user = await _context.Users.FirstOrDefaultAsync(d => d.Name == user_id);
+                    if (user == null)
+                    {
+                        throw new Exception($"User with Name: {user_id} doesn't exist");
+                    }
+                    else
+                    {
+                        return user;
+                    }
+                    
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"{ex.Source}/n {ex.Message}");
+                throw new Exception($"{ex.Source}\n{ex.Message}");
             }
         }
+
 
         public async Task<User> UpdateAsync(User updatedUser)
         {

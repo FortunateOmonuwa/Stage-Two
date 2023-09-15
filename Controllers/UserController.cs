@@ -22,7 +22,7 @@ namespace BackendStageTwo.Controllers
 
 
         [HttpGet("{user_id}")]
-        public async Task<IActionResult> GetUserByID(int user_id)
+        public async Task<IActionResult> GetUserByID(string user_id)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace BackendStageTwo.Controllers
             try
             {
                 var users = await _user.GetAllAsync();
-                if(users == null)
+                if (users == null)
                 {
                     return NotFound("No users were found");
                 }
@@ -79,13 +79,13 @@ namespace BackendStageTwo.Controllers
                     return Ok(users);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Source + ex.Message);
             }
         }
         [HttpDelete("{user_id}")]
-        public async Task<IActionResult> DeleteUser(int user_id)
+        public async Task<IActionResult> DeleteUser(string user_id)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace BackendStageTwo.Controllers
         }
 
         [HttpPut("{user_id}")]
-        public async Task<IActionResult> UpdateUser([FromBody] UserCreateDTO user, int user_id)
+        public async Task<IActionResult> UpdateUser([FromBody] UserCreateDTO user, string user_id)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace BackendStageTwo.Controllers
                 if (ModelState.IsValid && confirmUser != null)
                 {
                     var updatedUser = _mapper.Map<User>(user);
-                    updatedUser.Id = user_id;
+                    updatedUser.Id = Convert.ToInt32( user_id);
 
                     await _user.UpdateAsync(updatedUser);
                     return Ok(updatedUser);

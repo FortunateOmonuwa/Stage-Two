@@ -6,8 +6,8 @@ namespace BackendStageTwo.DataAccess.Interface
     {
         Task <User> CreateAsync (User user);
         Task<User> UpdateAsync (User user);
-        Task<bool> DeleteAsync (int user_id);
-        Task<User> GetAsync (int user_id);
+        Task<bool> DeleteAsync (string user_id);
+        Task<User> GetAsync (string user_id);
         Task<IQueryable<User>> GetAllAsync();
 
     }

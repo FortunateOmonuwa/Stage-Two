@@ -1,2 +1,14 @@
-//Connection string template
-"Data Source=Server name;Initial Catalog=Name of your database;User Id=Your database Id_admin;Password=YOUR_DB_PASSWORD
+
+
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "User": "Data Source=Server name;Initial Catalog=Name of your database;User Id=Your database Id_admin;Password=YOUR_DB_PASSWORD
+  }
+}

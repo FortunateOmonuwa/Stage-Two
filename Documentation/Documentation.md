@@ -33,7 +33,7 @@ This documentation outlines the endpoints, request formats, and expected respons
 
     --HTTP Method: GET
         Endpoint: /api/{user_id}
-        Description: Retrieve user details by ID.
+        Description: Retrieve user details by ID {ID in this case is dynamic. Input can either be the Id:integer or Id:string(name)}.
 
         Response (Success): Status Code 200 (OK)
             {
@@ -77,7 +77,7 @@ This documentation outlines the endpoints, request formats, and expected respons
 
     --HTTP Method: PUT
         Endpoint: /api/{user_id}
-        Description: Update user details by ID.
+        Description: Update user details by ID. {ID in this case is dynamic. Input can either be the Id:integer or Id:string(name)}.
 
         Request:
             {
@@ -100,7 +100,7 @@ This documentation outlines the endpoints, request formats, and expected respons
     Delete User
     --HTTP Method: DELETE
         Endpoint: /api/{user_id}
-        Description: Delete user by ID.
+        Description: Delete user by ID. {ID in this case is dynamic. Input can either be the Id:integer or Id:string(name)}.
 
         Response (Success): Status Code 200 (OK)
             {
